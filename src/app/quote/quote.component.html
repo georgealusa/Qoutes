@@ -1,0 +1,28 @@
+<div class="navbar">
+    <h1>Quotes</h1>
+</div>
+<div id="main" class="container">
+    <div class="row">
+        <div class="col-md-6 row-element-3">
+            <div class="cards shadow1" *ngFor='let quote of quotes; let i = index'>
+                <div id="quote">
+                </div>
+                <div>
+                    <div id="highlighted" appHighlight *ngIf="highestScore()===quote.upvotes && quote.upvotes>0">
+                        <h2>{{i+1}}. "{{quote.quote | uppercase}}"</h2>
+                        <h4>~{{quote.author|uppercase}}</h4>
+                    </div>
+                    <div *ngIf="highestScore()!==quote.upvotes || quote.upvotes==0">
+                        <h2>{{i+1}}. "{{quote.quote | uppercase}}"</h2>
+                        <h4>~{{quote.author |uppercase}}</h4>
+                    </div>
+                </div>
+                <!-- <button class="btn btn-outline-light" (click)='toggleDetails(i)'>Toggle Details</button> -->
+                <app-quote-detail [quote]='quote' (deleteQuote)='quoteDelete($event,i)'></app-quote-detail>
+            </div>
+        </div>
+        <div class="col-md-6 row-element-2">
+            <app-quote-form (addQuote)="addNewQuote($event)"></app-quote-form>
+        </div>
+    </div>
+</div>
